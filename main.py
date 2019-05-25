@@ -40,7 +40,6 @@ def read_input():
 def get_autocomplete():
     prefix = request.get_data()
     results = trie.find_autocomplete(root, prefix.decode("utf-8"))
-    print (results) #TODO for debug only
     return json.dumps(results)
 
 
@@ -49,6 +48,6 @@ if __name__ == "__main__":
     
     root = load_data(root, args.filename)
         
-    app.run(debug=True, host=args.host, port=8080, threaded=True)
+    app.run(debug=False, host=args.host, port=8080, threaded=True)
 
     
