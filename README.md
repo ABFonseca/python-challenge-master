@@ -23,38 +23,44 @@ output the possible words
 The microservice/web service should be simple enough as to just receive as input a
 user query, ask the autocomplete system for the possible results and send them back.
 
+## Requisites
 
-## What we expect to receive from you
-
-When you are ready to submit your answer to this challenge, you should set up a
-public GitHub repository with everything we ask below:
-
-* The autocomplete system
-* The API to query the autocomplete system
-* Set up a virtual machine environment using **docker-compose** to run the test 
-task including some short documentation
-* **Automated tests** covering as much of the code as possible
-* **Documentation** with instructions regarding how to set up the system and how
-to test it
-* Please build the application in small logical steps and commit each step to
- a **Github** repository so that we can see how you approach the task
+You will need to have python3, python-pip, docker and docker-compose on your machine to run
 
 
-## Important remarks
+## How to run
 
-* The challenge should be done using **Python**
-* The corpus (i.e. possible words that the autocomplete system can output) of the
-autocomplete system is **set in the setup/loading time** and remains **unchanged during runtime**
-* The autocomplete system can have a **high setup/loading time** but should be **very fast at runtime**
-* It is more important to have **less code and have it completely tested** with automated
-tests than to have a **lot of code without automated tests** to ensure its quality
+To run the webservices execute
+```
+FILE="<csv input file>" HOST="<host IP>" docker-compose up
+
+```
+
+To run on host 0.0.0.0 with the test_files/190titles.csv input file run:
+```
+FILE="test_files/190titles.csv" HOST="0.0.0.0" docker-compose up
+
+```
+
+or thrugh docker if you do not have docker-compose with:
+```
+docker build -t autocomplete-aptoid .
+docker run -p 8080:8080 autocomplete-aptoid -i test_files/190titles.csv -H 0.0.0.0
+```
 
 
-## Helpers
 
-* We're providing 2 corpus in the [*test_files*](./test_files) directory with different sizes that can be used for testing
-* Regarding the autocomplete system's data structure, search for **Trie** and **Tree-like data structures**
-* As for the autocomplete system's search algorithm, search for **BFS/DFS algorithms**
-* For the API and web server, read about **Flask** (Python module)
-* For the automated tests, read about **unittest** (Python module) and
-**docstrings**
+## How to make an API request
+
+With the webservice running on a different console run
+
+```
+curl -d "Fac" -X POST http://0.0.0.0:8080/autocomplete
+```
+
+## How to run the tests
+```
+python test_trie.py
+python test_search.py
+```
+
