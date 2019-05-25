@@ -1,7 +1,11 @@
 from argparse import ArgumentParser
+from flask import Flask, request
 import csv
 import trie
+import json
 
+root = trie.TrieNode('*')
+app = Flask(__name__)
 
 
 def load_data(root, filename):
@@ -30,14 +34,16 @@ def read_input():
         
     return args
 
+@app.route('/autocomplete', methods=["Post"])
+def get_autocomplete():
+    results = trie.find_autocomplete(root, request.get_data())
+    return json.dumps("No Data")
 
 if __name__ == "__main__":
     args = read_input()
     
-    root = load_data(trie.TrieNode('*'), args.filename)
+    root = load_data(root, args.filename)
+    
+    app.run(debug=False, host="127.0.0.1", port=8080, threaded=True)
 
-    #TODO shold the search be case sensitive ?!
-    print (trie.find_autocomplete(root, 'B'))
-    print (trie.find_autocomplete(root, 'fac'))
-    print (trie.find_autocomplete(root, 'Fac'))
     
