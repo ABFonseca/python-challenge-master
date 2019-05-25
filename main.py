@@ -23,10 +23,13 @@ def load_data(root, filename):
         exit (2)
 
 def read_input():
+    """
+    Reads input parameters
+    """
     parser = ArgumentParser()
     parser.add_argument("-i", "--input_file", dest="filename",
             help="csv input file", metavar="FILE")
-    parser.add_argument("-h", "--host", dest="host",
+    parser.add_argument("-H", "--host", dest="host",
             help="IP or hostname for the API to be listening to", default="127.0.0.1")
     args = parser.parse_args()
     
@@ -38,6 +41,11 @@ def read_input():
 
 @app.route('/autocomplete', methods=["Post"])
 def get_autocomplete():
+    """
+    API entrypoint for the autocomplete search
+    Input prefix: the prefix to search for the autocomplete
+    Returns json with list of possible autocompletitions
+    """
     prefix = request.get_data()
     results = trie.find_autocomplete(root, prefix.decode("utf-8"))
     return json.dumps(results)
