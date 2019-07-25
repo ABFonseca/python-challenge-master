@@ -6,9 +6,9 @@ pipeline {
 
   }
   stages {
-    stage('') {
+    stage('Test curl') {
       steps {
-        echo 'aaaa'
+        sh 'curl -d "Fac" -X POST http://127.0.0.1:8085/autocomplete'
       }
     }
   }
