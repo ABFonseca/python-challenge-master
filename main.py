@@ -28,7 +28,7 @@ def read_input():
     """
     parser = ArgumentParser()
     parser.add_argument("-i", "--input_file", dest="filename",
-            help="csv input file", metavar="FILE")
+            help="csv input file", metavar="FILE", default="test_files/190titles.csv")
     parser.add_argument("-H", "--host", dest="host",
             help="IP or hostname for the API to be listening to", default="127.0.0.1")
     args = parser.parse_args()
@@ -56,6 +56,6 @@ if __name__ == "__main__":
     
     root = load_data(root, args.filename)
         
-    app.run(debug=False, host=args.host, port=8080, threaded=True)
+    app.run(debug=False, host=args.host, port=8085, threaded=True)
 
     
