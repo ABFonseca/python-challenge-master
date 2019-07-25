@@ -12,4 +12,8 @@ pipeline {
       }
     }
   }
+  environment {
+    FILE = 'test_files/190titles.csv'
+    HOST = '127.0.0.1'
+  }
 }
